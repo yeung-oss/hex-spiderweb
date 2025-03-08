@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>六边形蜘蛛网生成器</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <canvas id="spiderChart"></canvas>
+    <div>
+        <label>口语: <input type="number" id="oral" value="4"></label>
+        <label>运营: <input type="number" id="operation" value="2"></label>
+        <label>流量: <input type="number" id="traffic" value="1"></label>
+        <label>分析: <input type="number" id="analysis" value="2"></label>
+        <label>网站: <input type="number" id="website" value="3"></label>
+        <label>开发: <input type="number" id="development" value="2"></label>
+        <label>Social: <input type="number" id="social" value="3"></label>
+        <button onclick="updateChart()">更新图表</button>
+    </div>
+    <script>
+        const ctx = document.getElementById('spiderChart').getContext('2d');
+        let chartData = {
+            labels: ["口语", "运营", "流量", "分析", "网站", "开发", "Social"],
+            datasets: [{
+                label: "蜘蛛网分级内容",
+                data: [4, 2, 1, 2, 3, 2, 3],
+                fill: true,
+                backgroundColor: "rgba(54, 162, 235, 0.2)",
+                borderColor: "rgb(54, 162, 235)",
+                pointBackgroundColor: "rgb(54, 162, 235)",
+                pointBorderColor: "#fff",
+                pointHoverBackgroundColor: "#fff",
+                pointHoverBorderColor: "rgb(54, 162, 235)"
+            }]
+        };
+
+        let spiderChart = new Chart(ctx, {
+            type: 'radar',
+            data: chartData,
+            options: {
+                scales: {
+                    r: {
+                        angleLines: { display: true },
+                        suggestedMin: 0,
+                        suggestedMax: 4
+                    }
+                }
+            }
+        });
+
+        function updateChart() {
+            chartData.datasets[0].data = [
+                parseInt(document.getElementById('oral').value),
+                parseInt(document.getElementById('operation').value),
+                parseInt(document.getElementById('traffic').value),
+                parseInt(document.getElementById('analysis').value),
+                parseInt(document.getElementById('website').value),
+                parseInt(document.getElementById('development').value),
+                parseInt(document.getElementById('social').value)
+            ];
+            spiderChart.update();
+        }
+    </script>
+</body>
+</html>
